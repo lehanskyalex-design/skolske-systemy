@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Evidencia produktov - Projekt</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f6f9;
+            color: #333;
+            scroll-behavior: smooth;
+        }
+        header {
+            background-color: #2c3e50;
+            color: white;
+            padding: 15px 20px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        header h1 {
+            margin: 0 0 10px 0;
+            font-size: 24px;
+        }
+        nav a {
+            color: #ecf0f1;
+            text-decoration: none;
+            margin-right: 15px;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        nav a:hover {
+            color: #1abc9c;
+        }
+        main {
+            max-width: 1000px;
+            margin: 20px auto;
+            padding: 0 20px;
+        }
+        section {
+            background: white;
+            padding: 25px;
+            margin-bottom: 25px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            border-left: 5px solid #3498db;
+        }
+        h2 {
+            color: #2c3e50;
+            margin-top: 0;
+            border-bottom: 2px solid #ecf0f1;
+            padding-bottom: 8px;
+        }
+        h3 {
+            color: #2980b9;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+        table th, table td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        table th {
+            background-color: #34495e;
+            color: white;
+        }
+        table tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        form {
+            display: grid;
+            gap: 12px;
+            max-width: 450px;
+        }
+        label {
+            font-weight: bold;
+        }
+        input[type="text"], input[type="email"], input[type="password"], input[type="number"], select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #27ae60;
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        button:hover {
+            background-color: #219150;
+        }
+        pre {
+            background-color: #272822;
+            color: #f8f8f2;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            font-family: 'Courier New', Courier, monospace;
+        }
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #2c3e50;
+            color: white;
+            margin-top: 40px;
+        }
+        footer a {
+            color: #1abc9c;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+
+    <a id="vrch"></a>
+
+    <header>
+        <h1>Návrh backendu - Evidencia produktov</h1>
+        <nav>
+            <a href="#opis">Opis</a>
+            <a href="#datovy-list">Dátový list</a>
+            <a href="#tabulky">Tabuľky</a>
+            <a href="#formulare">Formuláre</a>
+            <a href="#sql">SQL</a>
+            <a href="#udrzba">Údržba</a>
+            <a href="#zalohovanie">Zálohovanie</a>
+            <a href="#bezpecnost">Bezpečnosť</a>
+            <a href="#web">Web</a>
+        </nav>
+    </header>
+
+    <main>
+
+        <section id="opis">
+            <h2>1. Opis programu</h2>
+            <p>Program je webová aplikácia na evidenciu produktov. Údaje sa budú ukladať do spoločnej databázy. Používateľ bude pracovať cez prehliadač.</p>
+            <ul>
+                <li><strong>Používateľ:</strong> Po prihlásení môže pridávať a upravovať produkty, spravovať kategórie a vyhľadávať záznamy.</li>
+                <li><strong>Administrátor:</strong> Má rovnaké možnosti ako používateľ a navyše spravuje používateľské účty a ich oprávnenia.</li>
+                <li><strong>Archivácia:</strong> Nepoužívaný produkt sa označí ako archivovaný a nezobrazuje sa v bežnom zozname.</li>
+            </ul>
+        </section>
+
+        <section id="datovy-list">
+            <h2>2. Dátový list</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Entita</th>
+                        <th>Atribút (Pole)</th>
+                        <th>Dátový typ</th>
+                        <th>Pravidlá</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Produkty</strong></td>
+                        <td>id, nazov, popis, cena, pocet_kusov, kategoria_id, archivovany</td>
+                        <td>INT, VARCHAR, TEXT, NUMERIC, BOOLEAN</td>
+                        <td>Názov povinný (do 150 znakov), cena &gt;= 0, väzba na kategóriu.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Kategórie</strong></td>
+                        <td>id, nazov</td>
+                        <td>INT, VARCHAR(100)</td>
+                        <td>Názov je povinný a jedinečný.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Používatelia</strong></td>
+                        <td>id, meno, email, heslo_hash, rola, aktivny</td>
+                        <td>INT, VARCHAR, TEXT, BOOLEAN</td>
+                        <td>Rola (používateľ/administrátor), jedinečný email.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section id="tabulky">
+            <h2>3. Databázové tabuľky</h2>
+            <p>Aplikácia využíva tri hlavné tabuľky: <code>pouzivatelia</code>, <code>kategorie</code> a <code>produkty</code>.</p>
+        </section>
+
+        <section id="formulare">
+            <h2>4. Formuláre</h2>
+            <h3>Formulár produktu</h3>
+            <form action="#" method="post">
+                <label for="nazov">Názov produktu:</label>
+                <input type="text" id="nazov" name="nazov" required placeholder="Napr. Notebook">
+
+                <label for="cena">Cena (€):</label>
+                <input type="number" step="0.01" id="cena" name="cena" required placeholder="0.00">
+
+                <label for="pocet">Počet kusov:</label>
+                <input type="number" id="pocet" name="pocet" value="0" required>
+
+                <button type="submit">Uložiť produkt</button>
+            </form>
+
+            <br><hr><br>
+
+            <h3>Prihlasovací formulár</h3>
+            <form action="#" method="post">
+                <label for="email">E-mail:</label>
+                <input type="email" id="email" name="email" required placeholder="user@eshop.sk">
+
+                <label for="heslo">Heslo:</label>
+                <input type="password" id="heslo" name="heslo" required>
+
+                <button type="submit">Prihlásiť sa</button>
+            </form>
+        </section>
+
+        <section id="sql">
+            <h2>5. Ukladanie údajov a SQL</h2>
+<pre>
+CREATE DATABASE IF NOT EXISTS e_shop;
+USE e_shop;
+
+CREATE TABLE pouzivatelia (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    meno VARCHAR(100) NOT NULL,
+    email VARCHAR(254) NOT NULL UNIQUE,
+    heslo_hash TEXT NOT NULL,
+    rola VARCHAR(20) DEFAULT 'pouzivatel',
+    aktivny BOOLEAN DEFAULT TRUE
+);
+
+CREATE TABLE kategorie (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    nazov VARCHAR(100) NOT NULL UNIQUE
+);
+
+CREATE TABLE produkty (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    nazov VARCHAR(150) NOT NULL,
+    popis TEXT,
+    cena NUMERIC(12,2) NOT NULL CHECK (cena >= 0),
+    pocet_kusov INT DEFAULT 0 CHECK (pocet_kusov >= 0),
+    kategoria_id INT NOT NULL,
+    archivovany BOOLEAN DEFAULT FALSE,
+    FOREIGN KEY (kategoria_id) REFERENCES kategorie(id)
+);
+</pre>
+        </section>
+
+        <section id="udrzba">
+            <h2>6. Údržba databázy</h2>
+            <p>Zahŕňa kontrolu chýb, optimalizáciu, sledovanie voľného miesta, indexovanie a kontrolu používateľských oprávnení.</p>
+        </section>
+
+        <section id="zalohovanie">
+            <h2>7. Zálohovanie a archivácia</h2>
+            <p>Denné automatické šifrované zálohy, uchovávané 30 dní, s mesačnou skúšobnou obnovou do testovacej databázy.</p>
+        </section>
+
+        <section id="bezpecnost">
+            <h2>8. Bezpečnosť</h2>
+            <p>Používanie hashovania hesiel (napr. BCrypt), Prepared Statements proti SQL Injection a šifrovaný prenos cez HTTPS.</p>
+        </section>
+
+        <section id="web">
+            <h2>9. Sprístupnenie webu na internete</h2>
+            <p>Nasadenie backendu na server, zabezpečenie domény a SSL certifikátu, oddelené bezpečné pripojenie k databáze.</p>
+        </section>
+
+    </main>
+
+    <footer>
+        <p>&copy; Projekt Evidencia produktov | <a href="#vrch">Späť na vrch</a></p>
+    </footer>
+
+</body>
+</html>
